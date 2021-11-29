@@ -16,7 +16,7 @@ class CSPBase(Generic[NT, DT], ABC):
     def get_neighbours(self, node: NT) -> Iterable[NT]:
         pass
 
-    def check_constraint(self, A: NT, B: NT, valA: DT, valB: DT):
+    def check_constraint(self, A: NT, B: NT, valA: DT, valB: DT) -> bool:
         pass
 
     def is_solved(self) -> bool:
