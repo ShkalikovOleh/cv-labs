@@ -1,1 +1,1 @@
-__all__ = ['supervised', 'unsupervised', 'csp']
+__all__ = ['supervised', 'unsupervised', 'csp', 'photomontage']
