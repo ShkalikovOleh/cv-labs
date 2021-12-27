@@ -51,6 +51,9 @@ def cyk(input, grammar: GrammarBase,
     ndim = grammar.ndim
     max_S = np.prod(shape)
 
+    if max_S < 2:
+        return F[tuple(0 for _ in range(ndim*2))]
+
     for s in range(2, max_S + 1):
         for idx in __get_rectangles(shape, s):
             for k in range(ndim):
