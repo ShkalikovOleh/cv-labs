@@ -8,6 +8,7 @@ setup(name='cv-labs',
       author='Oleh Shkalikov',
       author_email='Shkalikov.Oleh@gmail.com',
       url='https://github.com/ShkalikovOleh/cv-labs',
-      packages=['cv', 'cv.unsupervised', 'cv.supervised', 'cv.csp', 'cv.photomontage'],
+      packages=['cv', 'cv.unsupervised', 'cv.supervised',
+                'cv.csp', 'cv.photomontage', 'cv.grammar'],
       install_requires=['jax[cpu]==0.2.21'],
       extras_require={'examples': ['scikit-learn>=0.20', 'matplotlib>=2.2.0']})
