@@ -1,4 +1,5 @@
 from itertools import product
+from typing import Tuple
 
 import numpy as np
 
@@ -44,7 +45,7 @@ class BinaryAdditionGrammar(GrammarBase):
         res = np.logical_and(mask, image_part)
         return (res.sum() / mask.sum()) > self.__threshold
 
-    def recognize_terminal(self, input: np.ndarray) -> np.ndarray:
+    def recognize_terminal(self, input: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
         H, W = input.shape
         mH, mW = self.__one_mask.shape
 
@@ -63,5 +64,5 @@ class BinaryAdditionGrammar(GrammarBase):
 
         return F, np.asarray([h, w])
 
-    def get_rules_for_dim(self, dim: int):
+    def get_rules_for_dim(self, dim: int) -> np.ndarray:
         return self.__rules[dim]

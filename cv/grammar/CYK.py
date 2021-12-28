@@ -6,7 +6,7 @@ import numpy as np
 from .GrammarBase import GrammarBase
 
 
-def __get_rectangle_from_starting_point(shape: np.ndarray, p: Tuple, S: int):
+def __get_rectangles_from_starting_point(shape: np.ndarray, p: Tuple, S: int):
     ndim = len(shape)
     t = np.minimum(1+S, shape - p)
     indexes = product(*[np.arange(t[i]) + p[i] for i in range(ndim)])
@@ -15,18 +15,19 @@ def __get_rectangle_from_starting_point(shape: np.ndarray, p: Tuple, S: int):
 
 def __get_rectangles(shape: np.ndarray, S: int):
     for p in product(*[range(h) for h in shape]):
-        for e in __get_rectangle_from_starting_point(shape, p, S):
+        for e in __get_rectangles_from_starting_point(shape, p, S):
             yield p + e
 
 
-def __get_splitting_idx(idx: int, k: int, ndim: int, split: int) -> Tuple[Tuple, Tuple]:
-    idx1 = list(idx)
-    idx1[k + ndim] = split
-    idx1 = tuple(idx1)
+def __get_splitting_idx(idx: Tuple[int, ...], k: int, ndim: int,
+                        split: int) -> Tuple[Tuple[int, ...], Tuple[int, ...]]:
+    idx1t = list(idx)
+    idx1t[k + ndim] = split
+    idx1 = tuple(idx1t)
 
-    idx2 = list(idx)
-    idx2[k] = split + 1
-    idx2 = tuple(idx2)
+    idx2t = list(idx)
+    idx2t[k] = split + 1
+    idx2 = tuple(idx2t)
 
     return idx1, idx2
 
@@ -45,7 +46,7 @@ reduction_func = Callable[[np.ndarray, np.ndarray], np.ndarray]
 
 def cyk(input, grammar: GrammarBase,
         reduction: reduction_func = __or_reduction,
-        qform: qform_func = __mult_qform):
+        qform: qform_func = __mult_qform) -> np.ndarray:
 
     F, shape = grammar.recognize_terminal(input)
     ndim = grammar.ndim

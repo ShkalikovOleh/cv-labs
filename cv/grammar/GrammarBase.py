@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import Tuple
 
 import numpy as np
 
@@ -11,7 +12,7 @@ class GrammarBase(ABC):
         pass
 
     @abstractmethod
-    def recognize_terminal(self, input: np.ndarray) -> np.ndarray:
+    def recognize_terminal(self, input: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
         pass
 
     @abstractmethod
